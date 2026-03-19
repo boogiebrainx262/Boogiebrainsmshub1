@@ -5,7 +5,7 @@ export default function Orders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/api/products`)
+    axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, orderData)
       .then(res => setOrders(res.data))
       .catch(err => console.error(err));
   }, []);
