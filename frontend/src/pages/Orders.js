@@ -5,7 +5,7 @@ export default function Orders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/orders/USER_ID")
+    axios.get(`${process.env.REACT_APP_API_URL}/api/products`)
       .then(res => setOrders(res.data))
       .catch(err => console.error(err));
   }, []);
