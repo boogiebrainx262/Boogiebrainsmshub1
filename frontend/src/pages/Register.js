@@ -11,10 +11,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/auth/register`,
-        formData
-      );
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, formData);
       setMessage("Registration successful! You can now log in.");
     } catch (err) {
       setMessage("Registration failed. Try again.");
