@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -10,17 +9,16 @@ const Wallet = () => {
   useEffect(() => {
     const fetchWallet = async () => {
       try {
-        const response = await axios.get(
+        const res = await axios.get(
           `${process.env.REACT_APP_API_URL}/api/wallet`
         );
-        setBalance(response.data.balance); // assumes backend returns { balance: number }
+        setBalance(res.data.balance);
       } catch (err) {
-        setError("Failed to load wallet data");
+        setError("Failed to load wallet");
       } finally {
         setLoading(false);
       }
     };
-
     fetchWallet();
   }, []);
 
@@ -30,7 +28,7 @@ const Wallet = () => {
   return (
     <div style={{ padding: "20px" }}>
       <h1>Wallet</h1>
-      <p>Your current balance: <strong>₦{balance}</strong></p>
+      <p>Your balance: <strong>₦{balance}</strong></p>
     </div>
   );
 };
