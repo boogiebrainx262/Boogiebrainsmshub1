@@ -9,6 +9,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        // ✅ Correct: includes /api/products
         const res = await axios.get(
           `${process.env.REACT_APP_API_URL}/api/products`
         );
