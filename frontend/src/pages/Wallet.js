@@ -9,9 +9,7 @@ const Wallet = () => {
   useEffect(() => {
     const fetchWallet = async () => {
       try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/wallet`
-        );
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/wallet`);
         setBalance(res.data.balance);
       } catch (err) {
         setError("Failed to load wallet");
