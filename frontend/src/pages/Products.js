@@ -10,9 +10,7 @@ const Products = () => {
     const fetchProducts = async () => {
       try {
         // ✅ Correct: includes /api/products
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/products`
-        );
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/products`);
         setProducts(res.data);
       } catch (err) {
         setError("Failed to load products");
