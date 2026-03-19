@@ -12,10 +12,7 @@ const Auth = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/auth/login`,
-        formData
-      );
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, formData);
       setMessage(`Login successful! Token: ${res.data.token}`);
       // You can save token in localStorage for later use:
       // localStorage.setItem("token", res.data.token);
