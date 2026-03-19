@@ -15,6 +15,7 @@ const productRoutes = require("./routes/products");
 const walletRoutes = require("./routes/wallet");
 const orderRoutes = require("./routes/orders");
 
+// Mount routes with /api prefix
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/wallet", walletRoutes);
