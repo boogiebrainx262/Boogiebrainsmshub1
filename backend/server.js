@@ -20,6 +20,11 @@ app.use("/api/products", productRoutes);
 app.use("/api/wallet", walletRoutes);
 app.use("/api/orders", orderRoutes);
 
+// Root route (homepage)
+app.get("/", (req, res) => {
+  res.send("🚀 BoogieBrains SMS Hub Backend is live!");
+});
+
 // Use Render's dynamic port
 const PORT = process.env.PORT || 5000;
 
