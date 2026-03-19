@@ -11,10 +11,7 @@ const Orders = () => {
   const handleOrder = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/orders`,
-        orderData,
-        {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, orderData);
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`, // use token from login
           },
