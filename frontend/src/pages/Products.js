@@ -1,26 +1,40 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Products() {
+const Products = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/api/products`)
-      .then(res => setProducts(res.data))
-      .catch(err => console.error(err));
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/products`
+        );
+        setProducts(res.data);
+      } catch (err) {
+        setError("Failed to load products");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
   }, []);
 
+  if (loading) return <p>Loading products...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
+
   return (
-    <div>
-      <h2>Products</h2>
-      {products.map(p => (
-        <div key={p._id}>
-          <h3>{p.name}</h3>
-          <p>{p.description}</p>
-          <p>₦{p.price}</p>
-          <button>Buy</button>
-        </div>
-      ))}
+    <div style={{ padding: "20px" }}>
+      <h1>Products</h1>
+      <ul>
+        {products.map((p) => (
+          <li key={p._id}>{p.name} – ₦{p.price}</li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
+
+export default Products;
