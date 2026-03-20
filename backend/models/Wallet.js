@@ -1,13 +1,17 @@
 const mongoose = require("mongoose");
 
 const WalletSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
+  },
   transactions: [
     {
-      date: { type: Date, default: Date.now },
-      amount: Number,
-      type: String, // deposit or purchase
-      status: String
+      amount: { type: Number, required: true },
+      type: { type: String, enum: ["deposit", "withdraw"], required: true },
+      status: { type: String, default: "Success" },
+      date: { type: Date, default: Date.now }
     }
   ]
 });
