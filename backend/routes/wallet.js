@@ -44,6 +44,7 @@ router.post("/fund", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
 // Get wallet history
 router.get("/:userId", async (req, res) => {
   try {
@@ -53,7 +54,7 @@ router.get("/:userId", async (req, res) => {
     }
     res.json(wallet.transactions);
   } catch (err) {
-    console.error(err);
+    console.error("Get wallet history error:", err);
     res.status(500).json({ error: "Server error" });
   }
 });
