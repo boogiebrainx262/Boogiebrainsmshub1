@@ -16,4 +16,15 @@ app.use(cors({
 // Routes
 app.use("/api/wallet", walletRoutes);
 
-module.exports = app;
+// MongoDB connection + server start
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
+
+mongoose.connect(MONGO_URI)
+  .then(() => {
+    console.log("MongoDB connected");
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch(err => console.error("MongoDB connection error:", err));
