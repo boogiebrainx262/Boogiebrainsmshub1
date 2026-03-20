@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 const Wallet = ({ userId }) => {
   const [balance, setBalance] = useState(0);
   const [transactions, setTransactions] = useState([]);
-
   const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
