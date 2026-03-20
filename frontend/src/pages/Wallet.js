@@ -1,32 +1,43 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 
-const Wallet = () => {
-  const [balance, setBalance] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+const Wallet = ({ userId }) => {
+  const [balance, setBalance] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    const fetchWallet = async () => {
-      try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/wallet`);
-        setBalance(res.data.balance);
-      } catch (err) {
-        setError("Failed to load wallet");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchWallet();
-  }, []);
+    fetch(`${API_URL}/wallet/${userId}`)
+      .then(res => res.json())
+      .then(data => setTransactions(data))
+      .catch(err => console.error("Error fetching wallet:", err));
+  }, [userId, API_URL]);
 
-  if (loading) return <p>Loading wallet...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  const fundWallet = async (amount) => {
+    const res = await fetch(`${API_URL}/wallet/fund`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, amount })
+    });
+    const data = await res.json();
+    setBalance(data.balance);
+    setTransactions(data.transactions);
+  };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Wallet</h1>
-      <p>Your balance: <strong>₦{balance}</strong></p>
+    <div>
+      <h2>Wallet</h2>
+      <p>Balance: {balance}</p>
+      <button onClick={() => fundWallet(100)}>Fund ₦100</button>
+
+      <h3>Transactions</h3>
+      <ul>
+        {transactions.map((t, i) => (
+          <li key={i}>
+            {t.type} - {t.amount} - {t.status} - {new Date(t.date).toLocaleString()}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
